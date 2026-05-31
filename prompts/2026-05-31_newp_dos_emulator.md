@@ -2,7 +2,7 @@
 date: 2026-05-31
 repo: Meta_DOSHorse
 status: open
-resume: "verder met DOSHorse v0.0.3 — CMake smoke-test build op Mac (arm64) + eerste DOSHorse_X86 native binary"
+resume: "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
 session: newp DOS Emulator
 agent: Claude Opus 4.7 (1M context)
 ---
@@ -110,3 +110,38 @@ Sanitycheck-conformiteit: ~88% → ~95%.
 
 Oud: "verder met DOSHorse v0.0.2-import — dosbox-x als submodule in DOSHorse_Core + eerste X86-build"
 Nieuw: "verder met DOSHorse v0.0.3 — CMake smoke-test build op Mac (arm64) + eerste DOSHorse_X86 native binary"
+
+---
+
+## Vervolg dezelfde sessie — v0.0.3 build smoke-test (2026-06-01, "verder")
+
+Datum is omgegaan — newp + v0.0.2 op 2026-05-31, build-werk op 2026-06-01 in dezelfde Claude-sessie.
+
+### v0.0.3 — Build smoke-test op host-Mac
+
+**WhatIf-akkoord:** `ja` op brew install + build (Intel Mac, x86_64, macOS 26.3).
+
+**Uitgevoerd:**
+- `brew install` voor 8 ontbrekende dosbox-x deps (automake, nasm, glfw, fluid-synth, libslirp, libpcap, pkg-config, sdl2_net)
+- `./build-macos-sdl2` in upstream/dosbox-x — **GESLAAGD in ~9.5 min** (00:16:37 → 00:25:55)
+- Binary: `upstream/dosbox-x/src/dosbox-x`, 22 MB, x86_64-only
+- Smoke-run: `./src/dosbox-x --version` → "DOSBox-X version 2026.05.02 SDL2" ✅
+- BUILD_LOG.md aangemaakt in `Meta_DOSHorse/docs/` met host-specs, build-keten, waarschuwingen, architectuur-noot
+
+**Bewijslast voor principes:**
+- ✅ P-DSH-02 (Y-pattern Core-submodule) — submodule add → buildbaar zonder Core-source-modificatie
+- ✅ P-DSH-03 (AGPL-3.0 via or-later) — werkende GPL-2.0+ binary onder onze AGPL-3.0-keten is licentie-compatibel in praktijk
+
+**Niet gecommit (terecht):** Build-output binnen submodule (binary + `.o`-files in `vs/sdl/linux-host/`). Core-repo's submodule-pointer onveranderd (still `4a95241b`).
+
+**Niet uitgevoerd (v0.0.4+):**
+- Eigen DOSHorse_X86 build-wrapper + branding
+- Universal binary (vereist Apple Silicon)
+- Public API headers (v0.0.5)
+- Per-file SPDX-spider tool
+- Run-test met echte DOS-image (alleen `--version` getest)
+
+### Resume-trigger opnieuw bijgewerkt
+
+Oud (v0.0.3 trigger): "verder met DOSHorse v0.0.3 — CMake smoke-test build op Mac (arm64) + eerste DOSHorse_X86 native binary"
+Nieuw (v0.0.4 trigger): "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
