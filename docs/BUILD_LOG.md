@@ -77,3 +77,61 @@ Build levert een GPL-2.0-or-later binary op (afgeleid van dosbox-x). Distributie
 ### Resume-trigger update
 - **Vorig:** "verder met DOSHorse v0.0.3 — CMake smoke-test build op Mac (arm64) + eerste DOSHorse_X86 native binary"
 - **Nieuw:** "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile of CMakeLists.txt die Core consumeert) + eigen branding op binary"
+
+---
+
+## Smoke-test #2 — DOSHorse_X86 wrapper end-to-end (2026-06-01)
+
+**Status:** ✅ **GESLAAGD**
+**Scope:** Bewijs dat DOSHorse_X86 v0.0.2-Sams Makefile-wrapper end-to-end werkt: `make build && make install && make smoke` produceert een werkende `dist/doshorse-x86` binary via de submodule-keten `DOSHorse_X86 → core/ → core/upstream/dosbox-x/`.
+
+### Host
+Identiek aan smoke-test #1 (Intel Mac, macOS 26.3, x86_64).
+
+### Submodule-keten geverifieerd
+```
+DOSHorse_X86 (HEAD: 4bfe917 "v0.0.2-Sams ...")
+  └─ core/                       → DOSHorse_Core@9924880 (v0.0.2-Dean)
+       └─ upstream/dosbox-x/     → joncampbell123@4a95241b (master tip 31-05)
+```
+Drie niveaus diep, `git submodule update --init --recursive --depth 1` pakt alles in één commando.
+
+### Run
+```bash
+cd DOSHorse_X86
+make build && make install && make smoke
+```
+
+| Eigenschap | Waarde |
+|---|---|
+| Start | 00:53:35 |
+| Eind | 01:03:39 |
+| Duur | **10m 04s** |
+| Resultaat | `core/upstream/dosbox-x/src/dosbox-x` → kopie naar `dist/doshorse-x86` |
+| Binary-grootte | 22 MB |
+| Versie-output | `DOSBox-X version 2026.05.02 SDL2, copyright 2011-2026 The DOSBox-X Team.` (upstream-string, branding-laag komt v0.0.5+) |
+| Exit code | 0 |
+
+### Wat dit bewijst (P-DSH-02 + P-DSH-03 in praktijk, niveau 2)
+
+Smoke-test #1 (v0.0.3) bewees: dosbox-x is buildbaar vanuit `DOSHorse_Core/upstream/dosbox-x/`.
+Smoke-test #2 (v0.0.4) bewijst additioneel: **DOSHorse_X86 kan upstream consumeren via de Y-pattern Core-submodule keten** zonder source-modificaties. De wrapper-only architectuur (approach A) werkt end-to-end.
+
+- ✅ **P-DSH-02** Y-pattern Core-submodule: drie-niveau submodule-keten werkt
+- ✅ **P-DSH-03** AGPL-3.0 via or-later: tweede end-to-end-build bevestigt licentie-keten in praktijk
+- ✅ **P-DSH-01** upstream-clean: `core/upstream/dosbox-x/` gitlink onveranderd (4a95241b), geen source-touch
+
+### Wat blijft (v0.0.5+)
+
+- `make build` voor Linux + Windows (nu macOS-only)
+- Source-branding patches (binary `--version` rapporteert nog upstream-string)
+- Universal binary (vereist Apple Silicon host)
+- Public API headers (v0.0.5)
+- DOSHorse_Web v0.0.2 Emscripten-build (apart traject)
+- Per-file SPDX-spider tool (UPSTREAM_AUDIT follow-up)
+- FluidSynth/MUNT lokale LICENSE-file follow-up
+- Run-test met echte DOS-image (`.exe`/`.img` boot)
+
+### Resume-trigger update
+- **Vorig:** "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
+- **Nieuw:** "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API headers (include/doshorse/) + DOSHorse_X86 source-branding patches (--version-string)"

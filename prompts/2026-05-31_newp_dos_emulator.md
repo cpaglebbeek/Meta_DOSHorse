@@ -2,7 +2,7 @@
 date: 2026-05-31
 repo: Meta_DOSHorse
 status: open
-resume: "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
+resume: "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API headers (include/doshorse/) + DOSHorse_X86 source-branding patches (--version-string)"
 session: newp DOS Emulator
 agent: Claude Opus 4.7 (1M context)
 ---
@@ -145,3 +145,39 @@ Datum is omgegaan — newp + v0.0.2 op 2026-05-31, build-werk op 2026-06-01 in d
 
 Oud (v0.0.3 trigger): "verder met DOSHorse v0.0.3 — CMake smoke-test build op Mac (arm64) + eerste DOSHorse_X86 native binary"
 Nieuw (v0.0.4 trigger): "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
+
+---
+
+## Vervolg dezelfde sessie — v0.0.4 DOSHorse_X86 wrapper (2026-06-01, "verder")
+
+### v0.0.4 — Eerste werkende build-wrapper (A: wrapper-only)
+
+**WhatIf-akkoord:** `j` op A+Makefile.
+
+**Uitgevoerd:**
+- `git submodule add --depth 1` DOSHorse_Core → `core/` in DOSHorse_X86
+- `git submodule update --init --recursive --depth 1` (drie-niveau keten: X86 → Core → dosbox-x@4a95241b)
+- `DOSHorse_X86/Makefile` (75 regels) met targets: `deps-check`, `build`, `install`, `smoke`, `clean`, `clean-build`, `version`, `help`
+- `DOSHorse_X86/BUILD.md` met quick-start + platform-status-tabel + branding-noot + architectuur-noot
+- `.gitignore` uitgebreid voor `dist/`
+- Lightweight Makefile-targets getest: `help`, `version`, `deps-check` (10 deps ✓)
+- **Full smoke-test #2 end-to-end**: `make build && install && smoke` ≈ 10m 04s, binary 22 MB werkend, `--version` output OK ✅
+- `BUILD_LOG.md` v0.0.4-sectie + Meta_DOSHorse/CLAUDE.md codename-pool (Sams toegewezen aan X86 v0.0.2)
+- Meta_Master/PROJECTS.json: DOSHorse_X86 0.0.1-Bradley → 0.0.2-Sams
+
+**Commits:**
+- DOSHorse_X86 `4bfe917` — Makefile + BUILD.md + submodule-keten + CHANGELOG/VERSION-bump
+- Meta_DOSHorse `5d85a41` — codename Sams toegewezen
+- Meta_Master `2ce298f` — PROJECTS.json X86-bump
+
+**Niet uitgevoerd (v0.0.5+):**
+- Eigen source-branding patches (`--version` rapporteert nog upstream-string)
+- Linux/Windows build-support in Makefile
+- Public API headers `include/doshorse/`
+- Universal binary (vereist Apple Silicon host)
+- Run-test met echte DOS-image
+
+### Resume-trigger weer bijgewerkt
+
+Oud (v0.0.4 trigger): "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
+Nieuw (v0.0.5 trigger): "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API headers (include/doshorse/) + DOSHorse_X86 source-branding patches (--version-string)"
