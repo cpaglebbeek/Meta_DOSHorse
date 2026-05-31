@@ -2,7 +2,7 @@
 date: 2026-05-31
 repo: Meta_DOSHorse
 status: open
-resume: "verder met DOSHorse v0.0.2-import — dosbox-x als submodule in DOSHorse_Core + eerste X86-build (Bradley → +0.0.1)"
+resume: "verder met DOSHorse v0.0.3 — CMake smoke-test build op Mac (arm64) + eerste DOSHorse_X86 native binary"
 session: newp DOS Emulator
 agent: Claude Opus 4.7 (1M context)
 ---
@@ -74,3 +74,39 @@ Stappen voltooid:
 
 ## Open beslispunten (volgende sessie)
 Zie `ARCHITECTURE.md` §Open beslispunten (O1..O6).
+
+---
+
+## Vervolg dezelfde sessie — P2-documentatie + v0.0.2-import
+
+Na skeleton + sanitycheck doorgegaan met "beide" (P2 + B) op verzoek gebruiker.
+
+### P2 — Documentatie (Meta_DOSHorse v0.0.1+, geen version-bump)
+
+- `docs/PRINCIPLES.md` — 8 principes P-DSH-01..08 (upstream-first, Y-pattern via Core-submodule, AGPL or-later-keten, save-state portabiliteit, codename single-source, multi-input first, per-file license-audit, geen ROM/OS in git met FreeDOS-fallback)
+- `docs/UPSTREAM_AUDIT.md` — License-chain bewijslast + audit-baseline-template voor v0.0.2
+- `docs/DEPENDENCIES.md` — Cross-repo Y-pattern + upstream-tabel + per-target deps + impact-matrix
+
+Sanitycheck-conformiteit: ~88% → ~95%.
+
+### v0.0.2-import (DOSHorse_Core 0.0.1-Eggebrecht → 0.0.2-Dean)
+
+**Beslispunt O1 beantwoord:** git submodule (optie 1), past bij P-DSH-01 + P-DSH-07 + AmigaHorse-precedent.
+
+**Acties:**
+- `git submodule add --depth 1 https://github.com/joncampbell123/dosbox-x.git upstream/dosbox-x` (in DOSHorse_Core)
+- Pinned commit: `4a95241b33b11537eef61a883b330478017cca3c` (master tip 2026-05-31, ~359 MB working tree, ~7720 files, ~4463 source)
+- **License-audit baseline:** GPL-2.0-or-later geverifieerd via 3 bronnen (COPYING + README + `src/dosbox.cpp`). 10 vendored sub-libs geïnventariseerd. **Geen blocking conflicts.** 2 follow-ups (FluidSynth/MUNT lokale LICENSE-files) naar v0.0.3.
+- `UPSTREAM_AUDIT.md` + `DEPENDENCIES.md` bijgewerkt met audit-baseline + pinned commit
+- `Meta_DOSHorse/CLAUDE.md` codename-pool: Dean (Mark Dean, ISA-bus co-inventor) toegewezen aan Core v0.0.2
+
+**Niet uitgevoerd (gepland v0.0.3):**
+- CMake smoke-test build op Mac arm64
+- Public API headers in `include/doshorse/` (v0.0.4)
+- Per-file SPDX-spider tool (`tools/license-audit.py`)
+- FluidSynth + MUNT lokale LICENSE-file follow-up
+
+### Resume-trigger gewijzigd
+
+Oud: "verder met DOSHorse v0.0.2-import — dosbox-x als submodule in DOSHorse_Core + eerste X86-build"
+Nieuw: "verder met DOSHorse v0.0.3 — CMake smoke-test build op Mac (arm64) + eerste DOSHorse_X86 native binary"

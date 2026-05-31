@@ -24,7 +24,7 @@ DOSHorse_Core  ◄───┬──── DOSHorse_X86       (SDL2-binding, pri
 
 | Upstream | Licentie | Rol | Repo |
 |---|---|---|---|
-| **joncampbell123/dosbox-x** | **GPL-2.0-or-later** (geverifieerd via README, formele LICENSE-check v0.0.2-import) | **DOSHorse_Core basis** — hard fork, geplande submodule `upstream/dosbox-x/` in v0.0.2 | [joncampbell123/dosbox-x](https://github.com/joncampbell123/dosbox-x) |
+| **joncampbell123/dosbox-x** | **GPL-2.0-or-later** (geverifieerd 3-bronnen 2026-05-31, zie UPSTREAM_AUDIT.md §License-bewijslast) | **DOSHorse_Core basis** — submodule `upstream/dosbox-x/` toegevoegd 2026-05-31 (Core v0.0.2-Dean), pinned `4a95241b33b11537eef61a883b330478017cca3c` | [joncampbell123/dosbox-x](https://github.com/joncampbell123/dosbox-x) |
 | SDL2 | Zlib | Cross-platform input/audio/video-abstractie (dosbox-x vendort, wij ook bij Web/Android-build) | [libsdl-org/SDL](https://github.com/libsdl-org/SDL) |
 | FluidSynth | LGPL-2.1-or-later | General MIDI synth voor DOS-MIDI-output (Sound Canvas SC-55-stijl) | [FluidSynth/fluidsynth](https://github.com/FluidSynth/fluidsynth) |
 | MUNT | LGPL-2.1-or-later | MT-32 emulator (Roland MT-32 voor klassieke DOS-games als Sierra adventures) | dosbox-x vendored |

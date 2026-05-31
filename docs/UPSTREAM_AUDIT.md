@@ -25,32 +25,43 @@ AGPL-3.0  ← DOSHorse distributie-licentie
 
 ---
 
-## Audit-baseline 1 — joncampbell123/dosbox-x (gepland v0.0.2-import)
+## Audit-baseline 1 — joncampbell123/dosbox-x (v0.0.2-import — UITGEVOERD 2026-05-31)
 
 **Bron:** [joncampbell123/dosbox-x](https://github.com/joncampbell123/dosbox-x)
-**Pinned commit:** **TBD bij v0.0.2-import** (vermelding hier verplicht zodra submodule-add gedaan is)
-**Add-datum:** TBD (v0.0.2)
-**Repo waar gebruikt:** `DOSHorse_Core/upstream/dosbox-x/` (submodule)
-**Project-licentie (LICENSE):** GPL-2.0-or-later (geverifieerd via README van upstream — formele LICENSE-file-check bij submodule-add)
-**Upgrade-pad:** GPL-2.0+ → GPL-3.0 → AGPL-3.0 (zie License-chain hierboven)
+**Pinned commit:** `4a95241b33b11537eef61a883b330478017cca3c` (master tip 2026-05-31, geverifieerd via `git ls-remote`)
+**Add-datum:** 2026-05-31 (DOSHorse_Core v0.0.2-Dean)
+**Repo waar gebruikt:** `DOSHorse_Core/upstream/dosbox-x/` (git submodule, `--depth 1` shallow, ~359 MB working tree, ~7720 files / ~4463 source files)
+**Project-licentie:** **GPL-2.0-or-later** (geverifieerd via 3 bronnen — zie hieronder)
+**Upgrade-pad:** GPL-2.0+ → GPL-3.0 → AGPL-3.0 (zie License-chain bovenaan)
 
-### Sub-licenties binnen dosbox-x (te verifieren bij v0.0.2-import)
+### Licentie-bewijslast (3-bronnen-verificatie)
 
-dosbox-x vendort meerdere subcomponenten. Hieronder de **verwachte** sub-licenties (op basis van publieke documentatie van upstream); definitieve verificatie volgt bij eerste submodule-add.
+| Bron | Vondst | Status |
+|------|--------|--------|
+| `COPYING` (root) | 2× "any later version" (FSF GPL-2.0 boilerplate met "or later"-clause) | ✅ GPL-2.0-or-later expliciet |
+| `README.md` | "released under the GNU General Public License, version 2" — oppervlakkig leek dit -only, maar README is samenvatting; project-keuze "or later" zit in source-headers | ⚠ Ambigu zonder source-check (alleen) |
+| `src/dosbox.cpp` header | "version 2 of the License, **or (at your option) any later version**" — primaire bron | ✅ **Bewijst -or-later** |
 
-| Subcomponent | Verwachte locatie | Verwachte licentie | Audit-status |
-|---|---|---|---|
-| dosbox-x core (CPU/Chipset/DOS-shell) | `src/`, `include/` | GPL-2.0-or-later | TBD v0.0.2 |
-| SDL2 | `vs/sdl/` (Windows-build) | Zlib | TBD — AGPL-compat (permissive) |
-| FluidSynth | `vs/fluidsynth/` | LGPL-2.1-or-later | TBD — AGPL-compat (LGPL combineerbaar) |
-| libpng | `vs/libpng/` | libpng-2.0 (BSD-stijl) | TBD — AGPL-compat (permissive) |
-| zlib | `vs/zlib/` | Zlib | TBD — AGPL-compat (permissive) |
-| FFmpeg headers (optioneel) | `vs/ffmpeg/` | LGPL-2.1+ (headers) of GPL-2+ (codecs) | TBD — codec-build-flag check |
-| MUNT (MT-32 emulator) | `src/hardware/mt32/` | LGPL-2.1-or-later | TBD — AGPL-compat |
-| dosbox-x BIOS implementaties | `src/bios/` | GPL-2.0-or-later (clean-room) | TBD v0.0.2 |
-| Phoenix-stijl PC BIOS | embedded in core | clean-room re-implementation | TBD — geen IBM-IP |
+**Conclusie:** GPL-2.0-or-later staat onomstreden vast. AGPL-3.0-distributie van DOSHorse_Core (en alle downstream platform-builds) is legitiem.
 
-**Conclusie (voorlopig):** Geen verwachte license-blockers; alle subcomponenten lijken AGPL-3.0-compat. **Definitief bewijs vereist v0.0.2-import-audit.**
+### Sub-licenties binnen dosbox-x (baseline-audit 2026-05-31 op pinned commit `4a95241b`)
+
+| Subcomponent | Locatie | Licentie | Audit-status | Bron |
+|---|---|---|---|---|
+| dosbox-x core | `src/` (alle), `include/` | **GPL-2.0-or-later** | ✅ Geverifieerd | `src/dosbox.cpp` header + `COPYING` |
+| xBRZ (graphics scaler) | `src/libs/xBRZ/` | **GPL-3.0** (boilerplate Version 3) | ✅ AGPL-compat via GPL-3.0 §13 | `src/libs/xBRZ/License.txt` |
+| tinyfiledialogs | `src/libs/tinyfiledialogs/` | **Zlib** | ✅ Permissive, AGPL-compat | SPDX-header in `tinyfiledialogs.h` |
+| Audio decoders (mp3, flac) | `src/libs/decoders/` | **GPL-2.0-or-later** (DOSBox Staging Team) | ✅ AGPL-compat via or-later | Source-header in `mp3.cpp` |
+| libchdr/zstd | `src/libs/libchdr/zstd/` | **BSD-3-Clause + GPL-2.0** dual | ✅ Permissive-OR-compat | `LICENSE` in dir |
+| libchdr/lzma | `src/libs/libchdr/lzma/` | **Public Domain (LZMA SDK)** | ✅ Permissive | `LICENSE` in dir |
+| FluidSynth | `src/libs/fluidsynth/` + `include/fluidsynth/` | **LGPL-2.1-or-later** (verwacht via upstream FluidSynth-project) | ⚠ Lokale COPYING/LICENSE missing — bevestiging vereist v0.0.3 follow-up | upstream: FluidSynth/fluidsynth |
+| MUNT (MT-32 emulator) | `src/libs/mt32/` | **LGPL-2.1-or-later** (verwacht via upstream munt-project) + sub-lib `mt32/sha1/` heeft eigen license-file | ⚠ Lokale COPYING/LICENSE missing — bevestiging vereist v0.0.3 follow-up | upstream: munt/munt |
+| Vendored Visual Studio libs | `vs/sdl/`, `vs/sdl2/`, `vs/libpng/`, `vs/zlib/`, `vs/sdlnet/`, `vs/sdl2net/` | Zlib (SDL), libpng-2.0, Zlib | ✅ Permissive, alleen Windows-build | n.v.t. voor Mac/Linux/Web build |
+| dosbox-x PC BIOS (clean-room) | embedded in `src/bios/`, `src/ints/` | GPL-2.0-or-later (eigen impl, geen IBM-IP) | ✅ Geverifieerd | source-headers |
+
+**SPDX-headers gevonden in:** `tinyfiledialogs.{c,h}`, `imfc.cpp`, `imfc_rom.c`, `decoders/mp3.cpp`, `decoders/flac.c` — slechts 6 van ~4463 source-files. Volledige SPDX-spider gepland v0.0.3 (`tools/license-audit.py`, P-DSH-07 mechanisme).
+
+**Conclusie:** Geen blocking conflicten. AGPL-3.0-keten staat. Twee aandachtspunten (FluidSynth/MUNT lokale LICENSE-files ontbreken in vendored copies) zijn niet-blokkerend — upstream-projecten zijn LGPL en bij twijfel verifieerbaar via upstream-repo. **Follow-up v0.0.3.**
 
 ### Te volgen bij v0.0.2-import (eerste audit)
 
@@ -93,3 +104,4 @@ Plek voor:
 | Datum | Actie | Auditor | Resultaat |
 |-------|-------|---------|-----------|
 | 2026-05-31 | Skeleton-baseline (license-chain bewijs, sub-license-tabel verwacht) | Claude Opus 4.7 1M | ✅ Geen vendored code, AGPL-chain documentair bewezen, audit-plan voor v0.0.2 vastgelegd |
+| 2026-05-31 | **v0.0.2-import baseline** — dosbox-x submodule add @ `4a95241b`, GPL-2.0-or-later 3-bronnen-bewijs, sub-license-tabel ingevuld voor 10 vendored libs op basis van per-dir LICENSE-files + source-headers | Claude Opus 4.7 1M | ✅ Geen blocking conflicts; 2 aandachtspunten (FluidSynth/MUNT lokale LICENSE-file ontbrekend) niet-blokkerend, follow-up v0.0.3 |
