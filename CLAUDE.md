@@ -34,13 +34,14 @@ Elke release krijgt een unieke naam van een IBM-PC- of x86-hardware-pionier als 
 | DOSHorse_Core | v0.0.1 | Eggebrecht | Lewis Eggebrecht, chief architect IBM PC 5150 motherboard |
 | DOSHorse_Core | v0.0.2 | Dean | Mark Dean, ISA-bus co-inventor (IBM PC AT) — Core verbindt componenten, ISA-bus verbindt hardware |
 | DOSHorse_X86 | v0.0.1 | Bradley | David Bradley, IBM PC BIOS-schrijver + Ctrl-Alt-Del |
+| DOSHorse_X86 | v0.0.2 | Sams | Phil Sams (Phoenix Technologies), clean-room BIOS-implementatie — past bij wrapper-only build-approach (bouwen bovenop upstream zonder source-modificaties) |
 | DOSHorse_Web | v0.0.1 | Faggin | Federico Faggin, 8080/Z80 chip-design pioneer |
 | DOSHorse_Android | v0.0.1 | Hoff | Marcian "Ted" Hoff, Intel 4004 designer |
 | DOSHorse_SteamDeck | v0.0.1 | Lowe | Bill Lowe, pitched IBM PC project to IBM management |
 
 ### Vrije pool (IBM-PC/x86-pioniers, willekeurige volgorde)
 
-Sams (Phil Sams, Phoenix BIOS clean-room), Canion (Rod Canion, Compaq founder), Noyce (Robert Noyce, Intel co-founder), Moore (Gordon Moore), Grove (Andy Grove), Mazor (Stanley Mazor, 4004 architect), Patterson (Tim Paterson, 86-DOS/QDOS), Allen (Paul Allen, Microsoft MS-DOS deal), Gates (Bill Gates), Kildall (Gary Kildall, CP/M voorloper), Manning, Vaden, Bushnell (Nolan Bushnell, parallel pioneer), Brockenbrough, Sutherland (Ivan Sutherland, graphics), Roberts (Ed Roberts, Altair 8800 pioneer x86-voorloper), Felsenstein (Lee Felsenstein, Osborne portable), Kapor (Mitch Kapor, Lotus 1-2-3), Ratliff (Wayne Ratliff, dBase II), Bricklin (Dan Bricklin, VisiCalc), Frankston (Bob Frankston, VisiCalc), Bastian (Bruce Bastian, WordPerfect), Norton (Peter Norton, Norton Utilities/DOS-tools).
+Canion (Rod Canion, Compaq founder), Noyce (Robert Noyce, Intel co-founder), Moore (Gordon Moore), Grove (Andy Grove), Mazor (Stanley Mazor, 4004 architect), Patterson (Tim Paterson, 86-DOS/QDOS), Allen (Paul Allen, Microsoft MS-DOS deal), Gates (Bill Gates), Kildall (Gary Kildall, CP/M voorloper), Manning, Vaden, Bushnell (Nolan Bushnell, parallel pioneer), Brockenbrough, Sutherland (Ivan Sutherland, graphics), Roberts (Ed Roberts, Altair 8800 pioneer x86-voorloper), Felsenstein (Lee Felsenstein, Osborne portable), Kapor (Mitch Kapor, Lotus 1-2-3), Ratliff (Wayne Ratliff, dBase II), Bricklin (Dan Bricklin, VisiCalc), Frankston (Bob Frankston, VisiCalc), Bastian (Bruce Bastian, WordPerfect), Norton (Peter Norton, Norton Utilities/DOS-tools).
 
 ### Rotatie-regels
 
