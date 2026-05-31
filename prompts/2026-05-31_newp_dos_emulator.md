@@ -2,7 +2,7 @@
 date: 2026-05-31
 repo: Meta_DOSHorse
 status: open
-resume: "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API headers (include/doshorse/) + DOSHorse_X86 source-branding patches (--version-string)"
+resume: "verder met DOSHorse v0.0.6 — eerste Public API implementatie (DOSHorse_Core src/doshorse/) + Linux/Windows Makefile-support"
 session: newp DOS Emulator
 agent: Claude Opus 4.7 (1M context)
 ---
@@ -181,3 +181,63 @@ Nieuw (v0.0.4 trigger): "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build
 
 Oud (v0.0.4 trigger): "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
 Nieuw (v0.0.5 trigger): "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API headers (include/doshorse/) + DOSHorse_X86 source-branding patches (--version-string)"
+
+---
+
+## Vervolg dezelfde sessie — v0.0.5 combined (2026-06-01, "verder")
+
+### v0.0.5 — Public API headers + branding-patch + smoke-test #3
+
+**WhatIf-akkoord:** "verder" → combined-track (Track 1 headers + Track 2 patch).
+
+**Uitgevoerd:**
+
+#### Track 1 — DOSHorse_Core Public API skeleton (v0.0.3-Canion)
+- `include/doshorse/version.h` — DOSHORSE_VERSION_* macros + DOSHORSE_API_VERSION
+- `include/doshorse/core.h` — C-API signatures: `doshorse_create/destroy/load_image/step_frame`, `doshorse_config_t` (cpu, memory, video, audio) — beslispunt C2 → C i.p.v. C++ (FFI-friendlier voor JNI/WASM)
+- `include/doshorse/savestate.h` — Save-state cross-platform API (P-DSH-04), `.dhs`-formaat, format-versie 1
+- **Geen implementatie** — signatures only, impl komt v0.0.6+
+
+#### Track 2 — Branding-patch + apply-script
+- `patches/0001-doshorse-branding.patch` — 1-regel banner-toevoeging vóór upstream's `--version` en `--help` output (target: `src/gui/sdlmain.cpp:7365` + `:7381`)
+- `tools/apply-patches.sh` — bash, idempotent (skip-if-applied), check-pre-apply, exit-on-fail
+- DOSHorse_X86 Makefile uitbreiding: `apply-patches` target + `clean-patches` target; default `make` keten nu `apply-patches → build → install → smoke`
+
+#### Track 3 — Smoke-test #3 (~15 min)
+- `make` in DOSHorse_X86 → apply-patches ✓, build ✓ (exit 0), install ✓ (binary 22 MB), smoke ❌ runtime-dyld-fail
+- **Host-issue:** brew x265 drift van 4.1 (libx265.215) naar 4.2 (libx265.216) sinds v0.0.3; ffmpeg 8.1 verwacht oude. Niet DOSHorse-veroorzaakt.
+- **Workaround `DYLD_LIBRARY_PATH=/usr/local/Cellar/x265/4.1/lib`** → smoke-output toont:
+  ```
+  DOSHorse version 0.0.3-Canion (forked from upstream below)
+  DOSBox-X version 2026.05.02 SDL2, copyright 2011-2026 The DOSBox-X Team.
+  ...
+  ```
+- ✅ **Branding zichtbaar, upstream-attributie behouden**
+
+**Versie-bumps:**
+- DOSHorse_Core: 0.0.2-Dean → **0.0.3-Canion**
+- DOSHorse_X86: 0.0.2-Sams → **0.0.3-Noyce**
+
+**Commits:**
+- DOSHorse_Core `54db632` — Public API headers + patch + apply-script
+- DOSHorse_X86 `afb4b87` — Makefile + Core-bump + version-bump
+- Meta_DOSHorse `d1e89f1` — codename-pool sync
+- Meta_Master `57b8067` — PROJECTS.json sync
+
+**Bewijs principes niveau 3:**
+- ✅ P-DSH-01 (patches in Core, upstream-clean) — gitlink onveranderd
+- ✅ P-DSH-02 (Y-pattern submodule-keten) — drie-niveau end-to-end
+- ✅ P-DSH-03 (AGPL via or-later) — derde branded build
+- ✅ P-DSH-04 (cross-platform save-state) — skeleton-API ontworpen
+
+**Niet uitgevoerd (v0.0.6+):**
+- Public API implementatie (Core src/doshorse/*.c)
+- Linux/Windows Makefile-support
+- Universal binary
+- DOSHorse_Web v0.0.2 (Emscripten)
+- DOSHorse_Android v0.0.2 (NDK)
+- Host x265-drift definitieve fix (out-of-scope DOSHorse, host-state)
+
+### Resume-trigger weer bijgewerkt (v0.0.6)
+
+"verder met DOSHorse v0.0.6 — eerste Public API implementatie (DOSHorse_Core src/doshorse/) + Linux/Windows Makefile-support"

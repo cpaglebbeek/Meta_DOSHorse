@@ -135,3 +135,92 @@ Smoke-test #2 (v0.0.4) bewijst additioneel: **DOSHorse_X86 kan upstream consumer
 ### Resume-trigger update
 - **Vorig:** "verder met DOSHorse v0.0.4 — DOSHorse_X86 eigen build-wrapper (Makefile/CMakeLists.txt rond Core-submodule) + eigen branding op binary"
 - **Nieuw:** "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API headers (include/doshorse/) + DOSHorse_X86 source-branding patches (--version-string)"
+
+---
+
+## Smoke-test #3 — DOSHorse_X86 v0.0.3-Noyce + branding-patch (2026-06-01)
+
+**Status:** ✅ **GESLAAGD** (build + apply-patches + binary-branding bewezen; host-specifieke runtime-workaround voor smoke-run)
+**Scope:** Bewijs dat de wrapper-pipeline met patch-stap (apply-patches → build → install → smoke) end-to-end werkt en dat de DOSHorse-branding zichtbaar is in `--version` output.
+
+### Host
+Identiek aan smoke-test #1 + #2 (Intel Mac, macOS 26.3, x86_64). Brew x265 echter gedreven van 4.1 → 4.2 sinds v0.0.3 smoke-test (host-state-drift, niet DOSHorse-veroorzaakt).
+
+### Submodule-keten + apply-patches
+
+```
+DOSHorse_X86@afb4b87 (v0.0.3-Noyce)
+  └─ core/@54db632 (DOSHorse_Core v0.0.3-Canion)
+       └─ upstream/dosbox-x@4a95241b  ← + patches/0001-doshorse-branding.patch applied
+```
+
+`make apply-patches` (via `core/tools/apply-patches.sh`) gepatcht 1 file:
+- `src/gui/sdlmain.cpp:7365` — banner vóór `--version`-output
+- `src/gui/sdlmain.cpp:7381` — banner vóór `--help`-output
+
+Idempotent + reversible (lokaal getest in DOSHorse_Core).
+
+### Run
+
+```bash
+cd DOSHorse_X86
+make    # apply-patches → build → install → smoke
+```
+
+| Eigenschap | Waarde |
+|---|---|
+| Start | 01:24:46 |
+| Eind | 01:40 (~15 min) |
+| Apply-patches | ✓ (1 patch, `0001-doshorse-branding.patch`) |
+| Build resultaat | `core/upstream/dosbox-x/src/dosbox-x` (exit 0) |
+| Install | `dist/doshorse-x86` 22 MB |
+| Smoke-test in Makefile | ❌ Faalde op dyld-runtime (host-issue, niet DOSHorse) |
+
+### Smoke-run met host-workaround
+
+```bash
+DYLD_LIBRARY_PATH=/usr/local/Cellar/x265/4.1/lib \
+  ./dist/doshorse-x86 --version
+```
+
+Output (eerste 6 regels):
+```
+DOSHorse version 0.0.3-Canion (forked from upstream below)
+
+DOSBox-X version 2026.05.02 SDL2, copyright 2011-2026 The DOSBox-X Team.
+DOSBox-X project maintainer: joncampbell123 (The Great Codeholio)
+...
+```
+
+✅ **DOSHorse-banner zichtbaar vóór upstream DOSBox-X info.** Upstream-attributie behouden. P-DSH-01 (upstream-clean) + branding-doel beide bereikt in praktijk.
+
+### Bekende host-issue (niet DOSHorse-veroorzaakt)
+
+Sinds v0.0.3 smoke-test heeft Homebrew x265 gedreven van 4.1 (`libx265.215.dylib`) naar 4.2 (`libx265.216.dylib`). ffmpeg 8.1 op deze Mac was gelinkt tegen 4.1; bij elke `dyld`-lookup naar `libx265.215.dylib` faalt het. Beide versies zijn lokaal aanwezig in `/usr/local/Cellar/x265/{4.1,4.2}/`.
+
+Workarounds (kies één bij hervatting):
+- **Snelste:** `DYLD_LIBRARY_PATH=/usr/local/Cellar/x265/4.1/lib` prefix
+- **Permanent:** `brew reinstall ffmpeg` (~5-10 min, rebuildt tegen huidige x265 4.2)
+- **Brew-symlink:** `ln -s /usr/local/Cellar/x265/4.2/lib/libx265.216.dylib /usr/local/Cellar/x265/4.2/lib/libx265.215.dylib` — niet ABI-veilig, niet aanbevolen
+
+**Geen wijziging in DOSHorse-code nodig** — dit is een ontwikkelaar-host-state issue.
+
+### Bewezen architectuurprincipes (niveau 3)
+
+- ✅ **P-DSH-01** upstream-first / clean: patches leven in `Core/patches/`, niet in submodule-history. `upstream/dosbox-x/` gitlink onveranderd 4a95241b
+- ✅ **P-DSH-02** Y-pattern Core-submodule: drie-niveau keten (X86→Core→dosbox-x) + apply-patches-script werkt
+- ✅ **P-DSH-03** AGPL-3.0 or-later: derde end-to-end build bevestigt licentie-keten; branded binary distribueert met behoud van upstream-COPYING
+- ✅ **P-DSH-04** save-state API ontworpen (skeleton-headers in `Core/include/doshorse/savestate.h`)
+
+### Niet uitgevoerd (v0.0.6+)
+
+- Public API implementatie (`src/doshorse/*.c` koppelend aan dosbox-x' internal-state)
+- Linux/Windows build-support
+- Universal binary (Apple Silicon host vereist)
+- DOSHorse_Web v0.0.2 (Emscripten-pad)
+- DOSHorse_Android v0.0.2 (NDK-pad)
+- Per-file SPDX-spider tool
+
+### Resume-trigger update
+- **Vorig (v0.0.5):** "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API headers (include/doshorse/) + DOSHorse_X86 source-branding patches (--version-string)"
+- **Nieuw (v0.0.6):** "verder met DOSHorse v0.0.6 — eerste Public API implementatie (DOSHorse_Core src/doshorse/) + Linux/Windows Makefile-support"
