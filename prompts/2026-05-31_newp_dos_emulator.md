@@ -2,7 +2,7 @@
 date: 2026-05-31
 repo: Meta_DOSHorse
 status: open
-resume: "verder met DOSHorse v0.0.6 — eerste Public API implementatie (DOSHorse_Core src/doshorse/) + Linux/Windows Makefile-support"
+resume: "verder met DOSHorse v0.0.7 — bindings/sdl2/ koppeling van Core stub-API aan dosbox-x internal state, of DOSHorse_Web v0.0.2 (Emscripten)"
 session: newp DOS Emulator
 agent: Claude Opus 4.7 (1M context)
 ---
@@ -241,3 +241,32 @@ Nieuw (v0.0.5 trigger): "verder met DOSHorse v0.0.5 — DOSHorse_Core Public API
 ### Resume-trigger weer bijgewerkt (v0.0.6)
 
 "verder met DOSHorse v0.0.6 — eerste Public API implementatie (DOSHorse_Core src/doshorse/) + Linux/Windows Makefile-support"
+
+---
+
+## Vervolg dezelfde sessie — v0.0.6 combined (2026-06-01, "verder" → optie 1)
+
+### v0.0.6 — Public API impl + cross-platform Makefile
+
+**WhatIf-akkoord:** "1" → optie 1 combined (Track A + B + C).
+
+### Track A — DOSHorse_Core Public API stub-impl (v0.0.4-Mazor)
+- src/doshorse/{version,core,savestate}.c
+- Makefile met lib/smoke targets
+- test/smoke.c (5 assertion-groepen)
+- Lokaal bewezen: libdoshorse_core.a 4.0 KB + alle 5 smoke-tests passed
+
+### Tracks B + C — DOSHorse_X86 cross-platform Makefile (v0.0.4-Felsenstein)
+- Platform-detection Darwin/Linux/Windows-MinGW
+- Build-script keuze per platform
+- deps-check brew/apt/pacman
+- Mac-regression-getest, Linux/Win gedocumenteerd-untested
+
+### Commits
+- DOSHorse_Core 4ec64c8
+- DOSHorse_X86 50fff61
+- Meta_DOSHorse 6c347ef + (volgt voor prompts-update)
+- Meta_Master (volgt)
+
+### Resume-trigger
+"verder met DOSHorse v0.0.7 — bindings/sdl2/ koppeling van Core's stub-API aan dosbox-x' internal CPU/IMGMOUNT state, of DOSHorse_Web v0.0.2 (Emscripten-toolchain)"
