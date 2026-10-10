@@ -47,7 +47,7 @@ In ontwikkelvolgorde:
 
 ## Deploy
 
-Hosting op `horsecloud55.ddns.net/DOSHorse/{web,downloads/x86,downloads/android,downloads/steamdeck}/`. Nginx-subpad en poorten worden geclaimd in `SHARED_INFRA_PATCH.md` zodra een variant runnable wordt — niet bij skeleton-aanmaak.
+Hosting op `icthorsecloud.nl/DOSHorse/{web,downloads/x86,downloads/android,downloads/steamdeck}/`. Nginx-subpad en poorten worden geclaimd in `SHARED_INFRA_PATCH.md` zodra een variant runnable wordt — niet bij skeleton-aanmaak.
 
 ## Verwijzingen
 

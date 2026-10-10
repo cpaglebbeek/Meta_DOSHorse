@@ -30,7 +30,7 @@ Skill `/verifyrules` aangeroepen vóór WhatIf. Naleefmatrix opgesteld:
 | 2 | Ecosysteem | 1 — sub-master onder Gaming | Zus van AmigaHorse + SteamDeckMSX |
 | 3 | Repo-namen + thema | DOSEmulator_* + IBM-PC hardware-pioniers | (later herzien) |
 | 4 | Licentie | 1 — PUBLIC GPL-2.0-or-later, README-attributie, geen courtesy-notice | (later herzien naar AGPL-3.0) |
-| 5 | Deploy | 3 — HorseCloud55 DDNS | `horsecloud55.ddns.net/DOSHorse/` |
+| 5 | Deploy | 3 — HorseCloud55 DDNS | `icthorsecloud.nl/DOSHorse/` |
 
 ### Fase 1.5 — Meta-impact STOP
 
@@ -69,7 +69,7 @@ Stappen voltooid:
 | Visibility | PUBLIC |
 | Upstream | joncampbell123/dosbox-x (GPL-2.0-or-later) |
 | Codename-thema | IBM-PC hardware-pioniers |
-| Deploy-target | horsecloud55.ddns.net/DOSHorse/ |
+| Deploy-target | icthorsecloud.nl/DOSHorse/ |
 | Ontwikkelvolgorde | X86 → Core → Web → Android → SteamDeck |
 
 ## Open beslispunten (volgende sessie)

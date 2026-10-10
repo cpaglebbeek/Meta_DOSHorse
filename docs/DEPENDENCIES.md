@@ -84,7 +84,7 @@ DOSHorse_Core  ◄───┬──── DOSHorse_X86       (SDL2-binding, pri
 | `Meta_DOSHorse/CLAUDE.md` codename-pool | Volgende release in elke sub-repo (lookup-bron) | Geen runtime-impact |
 | Save-state-formaat-bump (`.dhs`) | Alle 4 platforms (P-DSH-04 cross-compat) | Migration-tool nodig bij major-bump |
 | `LICENSE` of fork-attributie wijziging | Alle 6 repos identiek bij te werken | GitHub-repo-description + README |
-| Deploy `horsecloud55.ddns.net/DOSHorse/` subpad | DOSHorse_Web (rsync-target), Android downloads-pagina | HC55 nginx + `Meta_Master/SHARED_INFRASTRUCTURE.md` (P-TECH-04) |
+| Deploy `icthorsecloud.nl/DOSHorse/` subpad | DOSHorse_Web (rsync-target), Android downloads-pagina | HC55 nginx + `Meta_Master/SHARED_INFRASTRUCTURE.md` (P-TECH-04) |
 
 ## Geen runtime-dependencies tussen platform-repos
 
